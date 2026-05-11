@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #0f1923;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Animated background blobs */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+    body::before {
+      width: 500px; height: 500px;
+      background: #1DAAAA;
+      top: -120px; left: -100px;
+    }
+    body::after {
+      width: 400px; height: 400px;
+      background: #3A7BD5;
+      bottom: -80px; right: -80px;
+      animation-delay: -6s;
+    }
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.1); }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      padding: 44px 40px 40px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+      animation: rise 0.6s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Avatar circle */
+    .avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1DAAAA 0%, #3A7BD5 100%);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 8px 24px rgba(29,170,170,0.35);
+    }
+    .avatar svg { width: 32px; height: 32px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .card h1 {
+      font-family: 'Playfair Display', serif;
+      color: #fff;
+      font-size: 28px;
+      text-align: center;
+      letter-spacing: -0.3px;
+      margin-bottom: 30px;
+    }
+
+    .field {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .field label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 7px;
+      font-weight: 500;
+    }
+    .field input {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 12px;
+      padding: 13px 16px 13px 44px;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    .field input::placeholder { color: rgba(255,255,255,0.3); }
+    .field input:focus {
+      border-color: #1DAAAA;
+      background: rgba(29,170,170,0.08);
+      box-shadow: 0 0 0 3px rgba(29,170,170,0.18);
+    }
+    .field-icon {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .field-icon svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .forgot {
+      text-align: right;
+      margin-top: -8px;
+      margin-bottom: 22px;
+    }
+    .forgot a { font-size: 12px; color: #1DAAAA; text-decoration: none; }
+    .forgot a:hover { text-decoration: underline; }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1DAAAA 0%, #3A7BD5 100%);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(29,170,170,0.3);
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    }
+    .btn-login:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(29,170,170,0.45); }
+    .btn-login:active { transform: translateY(0); opacity: 0.9; }
+
+    /* ─── TABLE CARD ─── */
+    .table-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      animation: rise 0.6s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .table-card h2 {
+      font-family: 'Playfair Display', serif;
+      color: rgba(255,255,255,0.85);
+      font-size: 16px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .table-card h2 span {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #1DAAAA;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    thead th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    tbody tr {
+      transition: background 0.15s;
+    }
+    tbody tr:hover { background: rgba(255,255,255,0.04); }
+    tbody td {
+      padding: 12px 12px;
+      color: rgba(255,255,255,0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      vertical-align: middle;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .sn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(29,170,170,0.15);
+      color: #1DAAAA;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 500;
+      font-size: 13px;
+    }
+    .name-cell { font-weight: 500; color: rgba(255,255,255,0.9); }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      background: rgba(58,123,213,0.18);
+      color: #7AB8F5;
+      font-weight: 400;
+    }
+    .contact {
+      font-family: monospace;
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.03em;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- Login Card -->
+    <div class="card">
+      <div class="avatar">
+        <img src="photo_2026-05-11_09-27-50.jpg" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+      </div>
+      <h1>Welcome Back</h1>
+
+      <div class="field">
+        <label>Username</label>
+        <span class="field-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </span>
+        <input type="text" placeholder="Enter your username" />
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <span class="field-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <input type="password" placeholder="Enter your password" />
+      </div>
+
+      <div class="forgot"><a href="#">Forgot password?</a></div>
+      <button class="btn-login" onclick="handleLogin()">Sign In</button>
+    <p id="error-msg" style="color:#ff6b6b;text-align:center;margin-top:12px;font-size:13px;display:none;">❌ Incorrect username or password!</p>
+    </div>
+
+    <!-- Table Card -->
+    <div class="table-card" id="table-card" style="display:none;">
+      <h2><span></span> Contacts</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>S.N</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Contact No.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="sn">1</div></td>
+            <td class="name-cell">Samir Sapkota</td>
+            <td><span class="badge">Pokhara</span></td>
+            <td class="contact">9846052331</td>
+          </tr>
+          <tr>
+            <td><div class="sn">2</div></td>
+            <td class="name-cell">Nirdeshan</td>
+            <td><span class="badge">Pokhara</span></td>
+            <td class="contact">9846052331</td>
+          </tr>
+          <tr>
+            <td><div class="sn">3</div></td>
+            <td class="name-cell">Sushil Poudel</td>
+            <td><span class="badge">Pokhara</span></td>
+            <td class="contact">9846052331</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+<script>
+  // Correct credentials
+  const CORRECT_USER = "admin";
+  const CORRECT_PASS = "1234";
+
+  function handleLogin() {
+    const username = document.querySelector('input[type="text"]').value.trim();
+    const password = document.querySelector('input[type="password"]').value.trim();
+    const errorMsg = document.getElementById("error-msg");
+    const tableCard = document.getElementById("table-card");
+
+    if (username === CORRECT_USER && password === CORRECT_PASS) {
+      errorMsg.style.display = "none";
+      tableCard.style.display = "block";
+      // Open YouTube
+      window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1", "_blank");
+    } else {
+      errorMsg.style.display = "block";
+      tableCard.style.display = "none";
+    }
+  }
+
+  // Allow Enter key to trigger login
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") handleLogin();
+  });
+</script>
+</body>
+</html>
