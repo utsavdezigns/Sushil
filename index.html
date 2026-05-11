@@ -238,6 +238,25 @@
       color: rgba(255,255,255,0.6);
       letter-spacing: 0.03em;
     }
+    .call-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(29,170,170,0.18);
+      color: #1DAAAA;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .call-btn:hover {
+      background: rgba(29,170,170,0.38);
+      transform: scale(1.12);
+      box-shadow: 0 4px 14px rgba(29,170,170,0.35);
+    }
+    .call-btn:active { transform: scale(0.96); }
+    .call-btn svg { width: 18px; height: 18px; fill: none; stroke: #1DAAAA; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   </style>
 </head>
 <body>
@@ -288,19 +307,19 @@
             <td><div class="sn">1</div></td>
             <td class="name-cell">Samir Sapkota</td>
             <td><span class="badge">Pokhara</span></td>
-            <td class="contact">9846052331</td>
+            <td class="contact"><a href="tel:9846052331" class="call-btn" title="Call 9846052331"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.62 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.53 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a></td>
           </tr>
           <tr>
             <td><div class="sn">2</div></td>
             <td class="name-cell">Nirdeshan</td>
             <td><span class="badge">Pokhara</span></td>
-            <td class="contact">9846052331</td>
+            <td class="contact"><a href="tel:9846052331" class="call-btn" title="Call 9846052331"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.62 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.53 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a></td>
           </tr>
           <tr>
             <td><div class="sn">3</div></td>
             <td class="name-cell">Sushil Poudel</td>
             <td><span class="badge">Pokhara</span></td>
-            <td class="contact">9846052331</td>
+            <td class="contact"><a href="tel:9846052331" class="call-btn" title="Call 9846052331"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.62 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.53 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a></td>
           </tr>
         </tbody>
       </table>
